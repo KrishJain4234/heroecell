@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  font-family: 'Inter', sans-serif;
+}
+/* Noise layer (subtle) */
+.noise-overlay {
+  
+ /* Add a subtle transparent noise texture */
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Animated gradient overlay */
+.animated-gradient {
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.06));
+  animation: gradientMove 6s ease-in-out infinite;
+  background-size: 400% 400%;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
