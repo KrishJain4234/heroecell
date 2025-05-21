@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/heroecell/static/css/main.cfaac318.css",
-    "main.js": "/heroecell/static/js/main.17c00aa1.js",
+    "main.css": "/heroecell/static/css/main.975fa091.css",
+    "main.js": "/heroecell/static/js/main.cc87e185.js",
     "static/js/453.f67f8a09.chunk.js": "/heroecell/static/js/453.f67f8a09.chunk.js",
     "index.html": "/heroecell/index.html",
-    "main.cfaac318.css.map": "/heroecell/static/css/main.cfaac318.css.map",
-    "main.17c00aa1.js.map": "/heroecell/static/js/main.17c00aa1.js.map",
+    "main.975fa091.css.map": "/heroecell/static/css/main.975fa091.css.map",
+    "main.cc87e185.js.map": "/heroecell/static/js/main.cc87e185.js.map",
     "453.f67f8a09.chunk.js.map": "/heroecell/static/js/453.f67f8a09.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cfaac318.css",
-    "static/js/main.17c00aa1.js"
+    "static/css/main.975fa091.css",
+    "static/js/main.cc87e185.js"
   ]
 }
