@@ -1,9 +1,7 @@
 {
   "name": "heroecell",
   "version": "0.1.0",
-  "homepage":  "https://krishjain4234.github.io/heroecell"
-,
-
+  "homepage": "https://krishjain4234.github.io/heroecell",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
@@ -24,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
