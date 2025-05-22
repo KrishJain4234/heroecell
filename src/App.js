@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
-
 import "./index.css"; // Tailwind CSS
 
 const transitionWords = ["Innovate", "Create", "Inspire"];
+const heroTrail = ["Welcome", "to", "E-CELL"];
 
 function App() {
   const [showHero, setShowHero] = useState(false);
@@ -11,6 +11,8 @@ function App() {
   const fillControls = useAnimation();
   const wordControls = useAnimation();
   const capsuleWrapperControls = useAnimation();
+  const backgroundControls = useAnimation();
+  const heroControls = useAnimation();
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -43,13 +45,22 @@ function App() {
         })
         .then(() => {
           setShowHero(true);
+          backgroundControls.start({
+            scale: 1.1,
+            transition: { duration: 6, ease: "easeInOut" },
+          });
+          heroControls.start({
+            opacity: 1,
+            scale: 1,
+            transition: { duration: 1.2, ease: "easeInOut" },
+          });
         });
     }, 3500);
 
     return () => {
       clearInterval(wordInterval);
     };
-  }, [fillControls, wordControls, capsuleWrapperControls]);
+  }, [fillControls, wordControls, capsuleWrapperControls, backgroundControls, heroControls]);
 
   if (!showHero) {
     return (
@@ -64,7 +75,6 @@ function App() {
             initial={{ width: 0 }}
             animate={fillControls}
           />
-
           <motion.div
             className="absolute inset-0 flex items-center justify-center z-20"
             initial={{ opacity: 1 }}
@@ -81,10 +91,20 @@ function App() {
   }
 
   return (
-    <>
-      {/* Navbar (outside of zoom animation) */}
+    <div className="w-screen h-screen overflow-hidden relative">
+      {/* College logo in top-left */}
+      <div className="absolute top-4 left-6 z-50 flex flex-col items-center">
+  <img
+    src={`${process.env.PUBLIC_URL}/college.png`}
+    alt="College Logo"
+    className="w-10 h-10 object-contain mb-1"
+  />
+  <span className="text-white text-sm font-semibold tracking-wide">BMSIT&M</span>
+</div>
+
+
+      {/* Navigation */}
       <div className="absolute top-4 right-6 z-50">
-        {/* Desktop Nav */}
         <div className="hidden md:flex gap-6 items-center border border-white/20 bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 shadow-md">
           {["Home", "Events", "Team", "Gallery", "About Us"].map((item) => (
             <a
@@ -96,8 +116,6 @@ function App() {
             </a>
           ))}
         </div>
-
-        {/* Mobile Nav */}
         <div className="md:hidden">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -110,14 +128,9 @@ function App() {
               strokeWidth={2}
               viewBox="0 0 24 24"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-
           {menuOpen && (
             <div className="absolute right-0 mt-2 w-40 bg-white/10 border border-white/20 rounded-lg shadow-lg backdrop-blur-sm z-40">
               {["Home", "Events", "Team", "Gallery", "About Us"].map((item) => (
@@ -134,46 +147,64 @@ function App() {
         </div>
       </div>
 
-      {/* Hero Section with animation */}
+      {/* Background with floating shape */}
       <motion.div
-        className="fixed inset-0 overflow-hidden w-full h-full max-h-screen bg-cover bg-center text-white flex flex-col items-center justify-center text-center px-6"
-        style={{
-          backgroundImage: 'url("/back.png")',
-        }}
-        initial={{ scale: 1, backgroundPosition: "center" }}
-        animate={{
-          scale: 1.1,
-          backgroundPosition: "center 40%",
-        }}
-        transition={{
-          duration: 20,
-          ease: [0.4, 0, 0.2, 1],
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
+        animate={{ scale: [1, 1.15, 1], x: [0, 10, -10, 0], y: [0, -10, 10, 0] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute inset-0 w-full h-full bg-cover bg-center"
+        style={{ backgroundImage: `url(${process.env.PUBLIC_URL + "/back.png"})` }}
       >
-        {/* Transparent noise overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none z-10"
-          style={{
-            backgroundImage: 'url("/noise.png")',
-            backgroundRepeat: "repeat",
-            mixBlendMode: "overlay",
-            opacity: 0.04,
-          }}
+        <div className="absolute inset-0 bg-black/40" />
+        <motion.div
+          className="absolute w-40 h-40 bg-white/10 rounded-full blur-3xl top-1/3 left-1/4"
+          animate={{ x: [0, 20, -20, 0], y: [0, -10, 10, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
-
-        {/* Main content */}
-        <h1 className="text-6xl font-bold mb-4 z-20">Welcome to E-Cell</h1>
-        <p className="text-lg text-white max-w-xl z-20">
-          Igniting Innovation • Empowering Entrepreneurs
-        </p>
-        <button className="mt-8 px-6 py-3 bg-white text-black rounded-full font-semibold hover:bg-gray-200 transition z-20">
-          Explore Now
-        </button>
       </motion.div>
-    </>
+
+      {/* Hero section */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, ease: [0.65, 0, 0.22, 1], delay: 0.2 }}
+        className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center text-white px-4"
+      >
+        {/* Centered E-CELL logo + text */}
+        <div className="flex flex-col items-center mb-6">
+          <img
+            src={`${process.env.PUBLIC_URL}/ecell.png`}
+            alt="E-Cell Logo"
+            className="w-14 h-13 md:w-20 md:h-20 mb-2"
+          />
+          <span className="text-2xl md:text-3xl font-bold tracking-wide">E-CELL</span>
+        </div>
+
+        {/* Glassmorphism pill behind text */}
+        <div className="absolute w-96 h-32 bg-white/10 backdrop-blur-xl rounded-full z-0 blur-2xl opacity-30" />
+
+        {/* Word-by-word animated heading */}
+        <h1 className="font-poppins text-2xl md:text-4xl font-extrabold drop-shadow-xl space-x-2 z-10">
+
+          {heroTrail.map((word, i) => (
+            <motion.span
+              key={i}
+              className="inline-block mx-1"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 + i * 0.2, duration: 0.6 }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </h1>
+        <p className="font-poppins text-xl md:text-2xl mt-1 drop-shadow-md z-10 text-slate-300">
+
+        Dream Big. Start Small. Move Fast
+        </p>
+      </motion.div>
+    </div>
   );
 }
 
 export default App;
+
